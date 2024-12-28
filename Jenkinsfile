@@ -40,7 +40,8 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'cp -r dist/* /var/jenkins_home/workspace/cicd-pipeline/dist'
+                sh 'npm install -g serve'
+                sh 'serve -s /var/jenkins_home/workspace/cicd-pipeline/dist -l 3000 &'
             }
         }
     }

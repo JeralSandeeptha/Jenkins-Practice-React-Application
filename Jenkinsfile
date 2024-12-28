@@ -37,6 +37,12 @@ pipeline {
                 archiveArtifacts artifacts: 'dist/**/*', fingerprint: true
             }
         }
+
+        stage('Deploy') {
+            steps {
+                sh 'cp -r dist/* /var/jenkins_home/workspace/cicd-pipeline/dist'
+            }
+        }
     }
 
     post {

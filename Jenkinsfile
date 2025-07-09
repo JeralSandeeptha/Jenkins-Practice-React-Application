@@ -17,6 +17,12 @@ pipeline {
             git branch: 'master', url: 'https://github.com/JeralSandeeptha/Jenkins-Practice-React-Application.git'
           }
         }
+
+        stage('Install Dependencies') {
+          steps {
+            sh 'npm install'
+          }
+        }
     }
 
     post {

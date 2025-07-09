@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         nodejs 'NodeJS' // Ensure this matches the name configured in Jenkins' Global Tool Configuration
+        sonarScanner 'SonarScanner'
     }
 
     stages {
@@ -38,7 +39,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                withSonarQubeEnv('MySonarQubeServer') {
                     sh 'sonar-scanner'
                 }
             }

@@ -35,6 +35,14 @@ pipeline {
             sh 'npm run build'
           }
         }
+
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv(credentialsId: 'jenkins-sonarqube-token') {
+                    sh 'sonar-scanner'
+                }
+            }
+        }
     }
 
     post {

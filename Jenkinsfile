@@ -23,6 +23,18 @@ pipeline {
             sh 'npm install'
           }
         }
+
+        stage('Run Tests') {
+          steps {
+            sh 'npm run test'
+          }
+        }
+
+        stage('Build Project') {
+          steps {
+            sh 'npm run build'
+          }
+        }
     }
 
     post {

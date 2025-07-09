@@ -5,10 +5,6 @@ pipeline {
         nodejs 'NodeJS' // Ensure this matches the name configured in Jenkins' Global Tool Configuration
     }
 
-    environment {
-        SONAR_TOKEN = credentials('jenkins-sonarqube-token') // Make sure this exists in Jenkins credentials
-    }
-
     stages {
         stage('Cleanup Workspace') {
             steps {

@@ -11,6 +11,12 @@ pipeline {
                 cleanWs()
             }
         }
+
+        stage('Checkout from SCM') {
+          steps {
+            git branch: 'master', url: 'https://github.com/JeralSandeeptha/Jenkins-Practice-React-Application.git'
+          }
+        }
     }
 
     post {

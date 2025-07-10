@@ -49,13 +49,13 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube-server') {
-                    bat """
-                        sonarqube-scanner \
-                        -Dsonar.projectKey=Jenkins-Practice-React-Application \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9000 \
-                        -Dsonar.login=$SONAR_TOKEN
-                    """
+                    bat '''
+                        sonar-scanner ^
+                        -Dsonar.projectKey=Jenkins-Practice-React-Application ^
+                        -Dsonar.sources=. ^
+                        -Dsonar.host.url=http://localhost:9000 ^
+                        -Dsonar.login=%SONAR_TOKEN%
+                    '''
                 }
             }
         }

@@ -62,19 +62,15 @@ pipeline {
                 }
             }
         }
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         withSonarQubeEnv('sonarqube-server') {
-        //             bat '''
-        //                 sonar-scanner ^
-        //                 -Dsonar.projectKey=Jenkins-Practice-React-Application ^
-        //                 -Dsonar.sources=. ^
-        //                 -Dsonar.host.url=http://localhost:9000 ^
-        //                 -Dsonar.login=%SONAR_TOKEN%
-        //             '''
-        //         }
-        //     }
-        // }
+
+        stage('Quality Gate') {
+            steps {
+                // Wait for the quality gate result
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 
         stage('Build & Push Docker Image') {
             steps {
@@ -98,15 +94,6 @@ pipeline {
                 }
             }
         }
-
-        // stage('Quality Gate') {
-        //     steps {
-        //         // Wait for the quality gate result
-        //         timeout(time: 5, unit: 'MINUTES') {
-        //             waitForQualityGate abortPipeline: true
-        //         }
-        //     }
-        // }
     }
 
     post {

@@ -5,15 +5,15 @@ pipeline {
         nodejs 'NodeJS' // Ensure this matches the name configured in Jenkins' Global Tool Configuration
     }
 
-    environment {
-        // SONAR_TOKEN = credentials('jenkins-sonarqube-token')
-        // APP_NAME = "jenkins-practice-react-application"
-        // RELEASE = "1.0.0"
-        // DOCKER_USER = "jeralsandeeptha"
-        // DOCKER_PASS = 'dockerhub'
-        // IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-        // IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-    }
+    // environment {
+    //     SONAR_TOKEN = credentials('jenkins-sonarqube-token')
+    //     APP_NAME = "jenkins-practice-react-application"
+    //     RELEASE = "1.0.0"
+    //     DOCKER_USER = "jeralsandeeptha"
+    //     DOCKER_PASS = 'dockerhub'
+    //     IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+    //     IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+    // }
 
     stages {
         stage('Cleanup Workspace') {

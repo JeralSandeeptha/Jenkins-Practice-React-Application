@@ -47,7 +47,7 @@ pipeline {
                         sonar-scanner \
                         -Dsonar.projectKey=Jenkins-Practice-React-Application \
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.host.url=http://host.docker.internal:9000 \
                         -Dsonar.login=$SONAR_TOKEN
                     """
                 }

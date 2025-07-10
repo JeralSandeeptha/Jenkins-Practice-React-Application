@@ -34,11 +34,11 @@ pipeline {
           }
         }
 
-        // stage('Run Tests') {
-        //   steps {
-        //     sh 'npm run test'
-        //   }
-        // }
+        stage('Run Tests') {
+          steps {
+            bat 'npm run test'
+          }
+        }
 
         // stage('Build Project') {
         //   steps {

@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         nodejs 'NodeJS' // Ensure this matches the name configured in Jenkins' Global Tool Configuration
+        sonarQubeScanner 'sonarqube-scanner'
     }
 
     environment {
@@ -50,7 +51,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqube-server') {
                     bat '''
-                        sonarqube-scanner ^
+                        sonar-scanner ^
                         -Dsonar.projectKey=Jenkins-Practice-React-Application ^
                         -Dsonar.sources=. ^
                         -Dsonar.host.url=http://localhost:9000 ^

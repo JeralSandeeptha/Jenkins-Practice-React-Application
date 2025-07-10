@@ -40,11 +40,11 @@ pipeline {
           }
         }
 
-        // stage('Build Project') {
-        //   steps {
-        //     sh 'npm run build'
-        //   }
-        // }
+        stage('Build Project') {
+          steps {
+            bat 'npm run build'
+          }
+        }
 
         // stage('SonarQube Analysis') {
         //     steps {

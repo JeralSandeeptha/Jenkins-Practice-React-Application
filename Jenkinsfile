@@ -45,7 +45,7 @@ pipeline {
                 withSonarQubeEnv('sonarqube-server') {
                     sh """
                         sonar-scanner \
-                        -Dsonar.projectKey=react-vite-app \
+                        -Dsonar.projectKey=Jenkins-Practice-React-Application \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=http://localhost:9000 \
                         -Dsonar.login=$SONAR_TOKEN

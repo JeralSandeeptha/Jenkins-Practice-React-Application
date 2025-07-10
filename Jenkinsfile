@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         SONAR_TOKEN = credentials('jenkins-sonarqube-token')
-        APP_NAME = "Jenkins-Practice-React-Application"
+        APP_NAME = "jenkins-practice-react-application"
         RELEASE = "1.0.0"
         DOCKER_USER = "jeralsandeeptha"
         DOCKER_PASS = 'dockerhub'

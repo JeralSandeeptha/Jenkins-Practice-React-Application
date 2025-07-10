@@ -47,7 +47,7 @@ pipeline {
                         sonar-scanner \
                         -Dsonar.projectKey=react-vite-app \
                         -Dsonar.sources=. \
-                        -Dsonar.host.url=http://sonarqube:9000 \
+                        -Dsonar.host.url=http://localhost:9000 \
                         -Dsonar.login=$SONAR_TOKEN
                     """
                 }

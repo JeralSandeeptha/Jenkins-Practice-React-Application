@@ -94,6 +94,18 @@ pipeline {
                 }
             }
         }
+
+        stage('Security Scan - Trivy Scanning') {
+            steps {
+                script {
+                    // Scan the Docker image with Trivy and fail the build on vulnerabilities found
+                    def scanResult = bat(script: "trivy image --exit-code 1 --severity HIGH,CRITICAL ${IMAGE_NAME}:${IMAGE_TAG}", returnStatus: true)
+                    if (scanResult != 0) {
+                        error "Trivy scan detected vulnerabilities in the image!"
+                    }
+                }
+            }
+        }
     }
 
     post {

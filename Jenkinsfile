@@ -6,7 +6,7 @@ pipeline {
     }
 
     environment {
-        // SONAR_TOKEN = credentials('jenkins-sonarqube-token')
+        SONAR_TOKEN = credentials('jenkins-sonarqube-token')
         APP_NAME = "jenkins-practice-react-application"
         RELEASE = "1.0.0"
         DOCKER_USER = "jeralsandeeptha"
@@ -46,19 +46,19 @@ pipeline {
           }
         }
 
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         withSonarQubeEnv('sonarqube-server') {
-        //             sh """
-        //                 sonar-scanner \
-        //                 -Dsonar.projectKey=Jenkins-Practice-React-Application \
-        //                 -Dsonar.sources=. \
-        //                 -Dsonar.host.url=http://host.docker.internal:9000 \
-        //                 -Dsonar.login=$SONAR_TOKEN
-        //             """
-        //         }
-        //     }
-        // }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube-server') {
+                    bat """
+                        sonar-scanner \
+                        -Dsonar.projectKey=Jenkins-Practice-React-Application \
+                        -Dsonar.sources=. \
+                        -Dsonar.host.url=http://localhost:9000 \
+                        -Dsonar.login=$SONAR_TOKEN
+                    """
+                }
+            }
+        }
 
         stage('Build & Push Docker Image') {
             steps {

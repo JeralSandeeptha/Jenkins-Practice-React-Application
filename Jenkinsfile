@@ -3,12 +3,7 @@ pipeline {
 
     tools {
         nodejs 'NodeJS' // Ensure this matches the name configured in Jenkins' Global Tool Configuration
-        sonarQubeScanner 'sonarqube-scanner'
     }
-
-    environment {
-        SONAR_TOKEN = credentials('jenkins-sonarqube-token')
-      }
 
     stages {
         stage('Cleanup Workspace') {

@@ -3,7 +3,6 @@ pipeline {
 
     tools {
         nodejs 'NodeJS' // Ensure this matches the name configured in Jenkins' Global Tool Configuration
-        sonarQubeScanner 'sonarqube-server'
     }
 
     environment {
@@ -50,16 +49,32 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube-server') {
-                    bat '''
-                        sonar-scanner ^
-                        -Dsonar.projectKey=Jenkins-Practice-React-Application ^
-                        -Dsonar.sources=. ^
-                        -Dsonar.host.url=http://localhost:9000 ^
-                        -Dsonar.login=%SONAR_TOKEN%
-                    '''
+                    script {
+                        def scannerHome = tool name: 'sonarqube-scanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+                        bat """
+                            ${scannerHome}\\bin\\sonar-scanner.bat ^
+                            -Dsonar.projectKey=Jenkins-Practice-React-Application ^
+                            -Dsonar.sources=. ^
+                            -Dsonar.host.url=http://localhost:9000 ^
+                            -Dsonar.login=${env.SONAR_TOKEN}
+                        """
+                    }
                 }
             }
         }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('sonarqube-server') {
+        //             bat '''
+        //                 sonar-scanner ^
+        //                 -Dsonar.projectKey=Jenkins-Practice-React-Application ^
+        //                 -Dsonar.sources=. ^
+        //                 -Dsonar.host.url=http://localhost:9000 ^
+        //                 -Dsonar.login=%SONAR_TOKEN%
+        //             '''
+        //         }
+        //     }
+        // }
 
         stage('Build & Push Docker Image') {
             steps {
@@ -83,16 +98,6 @@ pipeline {
                 }
             }
         }
-        
-        // stage('Build & Push Docker Image') {
-        //   steps {
-        //     script {
-        //         def dockerImage = docker.build("${IMAGE_NAME}")
-        //         dockerImage.push("${IMAGE_TAG}")
-        //         dockerImage.push("latest")
-        //     }
-        //   }
-        // }
 
         // stage('Quality Gate') {
         //     steps {

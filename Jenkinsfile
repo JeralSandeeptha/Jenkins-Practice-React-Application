@@ -5,15 +5,15 @@ pipeline {
         nodejs 'NodeJS' // Ensure this matches the name configured in Jenkins' Global Tool Configuration
     }
 
-    // environment {
-    //     SONAR_TOKEN = credentials('jenkins-sonarqube-token')
-    //     APP_NAME = "jenkins-practice-react-application"
-    //     RELEASE = "1.0.0"
-    //     DOCKER_USER = "jeralsandeeptha"
-    //     DOCKER_PASS = 'dockerhub'
-    //     IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
-    //     IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
-    // }
+    environment {
+        // SONAR_TOKEN = credentials('jenkins-sonarqube-token')
+        APP_NAME = "jenkins-practice-react-application"
+        RELEASE = "1.0.0"
+        DOCKER_USER = "jeralsandeeptha"
+        DOCKER_PASS = 'dockerhub'
+        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
+    }
 
     stages {
         stage('Cleanup Workspace') {
@@ -60,20 +60,15 @@ pipeline {
         //     }
         // }
 
-        // stage('Build & Push Docker Image') {
-        //   steps {
-        //     script {
-        //         docker.withRegistry('', DOCKER_PASS) {
-        //             docker_image = docker.build "${IMAGE_NAME}"
-        //         }
-                
-        //         docker.withRegistry('', DOCKER_PASS) {
-        //             docker_image.push("${IMAGE_TAG}")
-        //             docker_image.push('latest')
-        //         }
-        //     }
-        //   }
-        // }
+        stage('Build & Push Docker Image') {
+          steps {
+            script {
+                def dockerImage = docker.build("${IMAGE_NAME}")
+                dockerImage.push("${IMAGE_TAG}")
+                dockerImage.push("latest")
+            }
+          }
+        }
 
         // stage('Quality Gate') {
         //     steps {

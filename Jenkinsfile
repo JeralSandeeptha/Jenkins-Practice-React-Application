@@ -22,58 +22,58 @@ pipeline {
             }
         }
 
-        stage('Checkout from SCM') {
-          steps {
-            git branch: 'master', url: 'https://github.com/JeralSandeeptha/Jenkins-Practice-React-Application.git'
-          }
-        }
+        // stage('Checkout from SCM') {
+        //   steps {
+        //     git branch: 'master', url: 'https://github.com/JeralSandeeptha/Jenkins-Practice-React-Application.git'
+        //   }
+        // }
 
-        stage('Install Dependencies') {
-          steps {
-            sh 'npm install'
-          }
-        }
+        // stage('Install Dependencies') {
+        //   steps {
+        //     sh 'npm install'
+        //   }
+        // }
 
-        stage('Run Tests') {
-          steps {
-            sh 'npm run test'
-          }
-        }
+        // stage('Run Tests') {
+        //   steps {
+        //     sh 'npm run test'
+        //   }
+        // }
 
-        stage('Build Project') {
-          steps {
-            sh 'npm run build'
-          }
-        }
+        // stage('Build Project') {
+        //   steps {
+        //     sh 'npm run build'
+        //   }
+        // }
 
-        stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('sonarqube-server') {
-                    sh """
-                        sonar-scanner \
-                        -Dsonar.projectKey=Jenkins-Practice-React-Application \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://host.docker.internal:9000 \
-                        -Dsonar.login=$SONAR_TOKEN
-                    """
-                }
-            }
-        }
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('sonarqube-server') {
+        //             sh """
+        //                 sonar-scanner \
+        //                 -Dsonar.projectKey=Jenkins-Practice-React-Application \
+        //                 -Dsonar.sources=. \
+        //                 -Dsonar.host.url=http://host.docker.internal:9000 \
+        //                 -Dsonar.login=$SONAR_TOKEN
+        //             """
+        //         }
+        //     }
+        // }
 
-        stage('Build & Push Docker Image') {
-          steps {
-            script {
-                docker.withRegistry('', DOCKER_PASS) {
-                    docker_image = docker.build "${IMAGE_NAME}"
-                }
+        // stage('Build & Push Docker Image') {
+        //   steps {
+        //     script {
+        //         docker.withRegistry('', DOCKER_PASS) {
+        //             docker_image = docker.build "${IMAGE_NAME}"
+        //         }
                 
-                docker.withRegistry('', DOCKER_PASS) {
-                    docker_image.push("${IMAGE_TAG}")
-                    docker_image.push('latest')
-                }
-            }
-          }
-        }
+        //         docker.withRegistry('', DOCKER_PASS) {
+        //             docker_image.push("${IMAGE_TAG}")
+        //             docker_image.push('latest')
+        //         }
+        //     }
+        //   }
+        // }
 
         // stage('Quality Gate') {
         //     steps {

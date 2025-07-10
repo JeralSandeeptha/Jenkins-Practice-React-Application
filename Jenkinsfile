@@ -50,7 +50,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('sonarqube-server') {
                     bat """
-                        sonar-scanner \
+                        sonarqube-scanner \
                         -Dsonar.projectKey=Jenkins-Practice-React-Application \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=http://localhost:9000 \

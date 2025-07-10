@@ -61,14 +61,37 @@ pipeline {
         // }
 
         stage('Build & Push Docker Image') {
-          steps {
-            script {
-                def dockerImage = docker.build("${IMAGE_NAME}")
-                dockerImage.push("${IMAGE_TAG}")
-                dockerImage.push("latest")
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                        // Login to Docker Hub
+                        bat "echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin"
+        
+                        // Build Docker image
+                        def dockerImage = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
+        
+                        // Push tagged image
+                        dockerImage.push("${IMAGE_TAG}")
+        
+                        // Push latest tag
+                        dockerImage.push("latest")
+        
+                        // Logout (optional)
+                        bat "docker logout"
+                    }
+                }
             }
-          }
         }
+        
+        // stage('Build & Push Docker Image') {
+        //   steps {
+        //     script {
+        //         def dockerImage = docker.build("${IMAGE_NAME}")
+        //         dockerImage.push("${IMAGE_TAG}")
+        //         dockerImage.push("latest")
+        //     }
+        //   }
+        // }
 
         // stage('Quality Gate') {
         //     steps {

@@ -21,7 +21,7 @@ FROM nginx:alpine
 COPY --from=0 /app/dist /usr/share/nginx/html
 
 # Use non-root user (optional but safer)
-USER nginx
+# USER nginx
 
 # Expose port and start nginx
 EXPOSE 80
